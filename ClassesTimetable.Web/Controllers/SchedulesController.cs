@@ -22,7 +22,7 @@ namespace ClassesTimetable.Web.Controllers
         // GET: Schedules
         public async Task<IActionResult> Index()
         {
-            var databaseContext = _context.Schedules.Include(s => s.Lesson).Include(s => s.Teacher);
+            var databaseContext = _context.Schedules.Include(s => s.ClassRoom).Include(s => s.Group).Include(s => s.Lesson).Include(s => s.Teacher);
             return View(await databaseContext.ToListAsync());
         }
 
@@ -35,6 +35,8 @@ namespace ClassesTimetable.Web.Controllers
             }
 
             var schedule = await _context.Schedules
+                .Include(s => s.ClassRoom)
+                .Include(s => s.Group)
                 .Include(s => s.Lesson)
                 .Include(s => s.Teacher)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -49,6 +51,8 @@ namespace ClassesTimetable.Web.Controllers
         // GET: Schedules/Create
         public IActionResult Create()
         {
+            ViewData["ClassRoomId"] = new SelectList(_context.ClassRooms, "Id", "Id");
+            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id");
             ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Id");
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Id");
             return View();
@@ -59,7 +63,7 @@ namespace ClassesTimetable.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeacherId,LessonId,StartTime,EndTime,Id")] Schedule schedule)
+        public async Task<IActionResult> Create([Bind("TeacherId,LessonId,ClassRoomId,GroupId,StartTime,EndTime,Id")] Schedule schedule)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +71,8 @@ namespace ClassesTimetable.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ClassRoomId"] = new SelectList(_context.ClassRooms, "Id", "Id", schedule.ClassRoomId);
+            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", schedule.GroupId);
             ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Id", schedule.LessonId);
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Id", schedule.TeacherId);
             return View(schedule);
@@ -85,6 +91,8 @@ namespace ClassesTimetable.Web.Controllers
             {
                 return NotFound();
             }
+            ViewData["ClassRoomId"] = new SelectList(_context.ClassRooms, "Id", "Id", schedule.ClassRoomId);
+            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", schedule.GroupId);
             ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Id", schedule.LessonId);
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Id", schedule.TeacherId);
             return View(schedule);
@@ -95,7 +103,7 @@ namespace ClassesTimetable.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeacherId,LessonId,StartTime,EndTime,Id")] Schedule schedule)
+        public async Task<IActionResult> Edit(int id, [Bind("TeacherId,LessonId,ClassRoomId,GroupId,StartTime,EndTime,Id")] Schedule schedule)
         {
             if (id != schedule.Id)
             {
@@ -122,6 +130,8 @@ namespace ClassesTimetable.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ClassRoomId"] = new SelectList(_context.ClassRooms, "Id", "Id", schedule.ClassRoomId);
+            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", schedule.GroupId);
             ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Id", schedule.LessonId);
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Id", schedule.TeacherId);
             return View(schedule);
@@ -136,6 +146,8 @@ namespace ClassesTimetable.Web.Controllers
             }
 
             var schedule = await _context.Schedules
+                .Include(s => s.ClassRoom)
+                .Include(s => s.Group)
                 .Include(s => s.Lesson)
                 .Include(s => s.Teacher)
                 .FirstOrDefaultAsync(m => m.Id == id);

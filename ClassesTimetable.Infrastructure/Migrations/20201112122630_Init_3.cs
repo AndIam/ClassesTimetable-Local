@@ -2,7 +2,7 @@
 
 namespace ClassesTimetable.Infrastructure.Migrations
 {
-    public partial class AddSchLessTeach : Migration
+    public partial class Init_3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

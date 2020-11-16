@@ -1,9 +1,38 @@
-﻿@using ClassesTimetable.Web.Models
+﻿@model ClassesTimetable.Core.Entities.ScheduleListViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Расписание";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
+<h2>Расписание Фильтр</h2>
+
+<form method="get">
+    <div class="form-inline form-group">
+
+        <label class="control-label">Группы: </label>
+        <select name="group" asp-items="Model.Groups" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>Аудитория</th>
+        <th>Начало занятия</th>
+        <th>Конец занятия</th>
+        <th>Предмет</th>
+        <th>Преподаватель</th>
+    </tr>
+
+    @foreach (var item in Model.Schedules)
+    {
+<tr>
+    <th>@item.ClassRoom.Name</th>
+    <td>@item.StartTime</td>
+    <td>@item.EndTime</td>
+    <td>@item.Lesson.Name</td>
+    <td>@item.Teacher.Name</td>
+</tr>
+    }
+</table>

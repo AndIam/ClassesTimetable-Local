@@ -1,19 +1,19 @@
-﻿@model IEnumerable<ClassesTimetable.Core.Entities.Lesson>
+﻿@model IEnumerable<ClassesTimetable.Core.Entities.Group>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Предмет</h1>
+<h1>Группы</h1>
 
 <p>
-    <a asp-action="Create">Добавить новый предмет</a>
+    <a asp-action="Create">Создать новую группу</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                <p>Название предмета</p>@*@Html.DisplayNameFor(model => model.Name)*@
+                <p>Номер группы</p>@*@Html.DisplayNameFor(model => model.Name)*@
             </th>
             <th></th>
         </tr>

@@ -12,6 +12,8 @@ namespace ClassesTimetable.Infrastructure.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<TeacherLesson> TeacherLessons { get; set; }
+        public DbSet<ClassRoom> ClassRooms { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)

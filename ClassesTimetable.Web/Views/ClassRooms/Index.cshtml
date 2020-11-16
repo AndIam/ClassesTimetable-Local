@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ClassesTimetable.Core.Entities.ClassRoom>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Аудитория</h1>
+
+<p>
+    <a asp-action="Create">Создать новую аудиторию</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Номер аудитории@*@Html.DisplayNameFor(model => model.Name)*@
+            </th>
+            <th>
+                Наличие компьютера@*@Html.DisplayNameFor(model => model.HavePC)*@
+            </th>
+            <th>
+                Наличие интерактивной доски или проектора@*@Html.DisplayNameFor(model => model.HaveBoard)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HavePC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HaveBoard)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

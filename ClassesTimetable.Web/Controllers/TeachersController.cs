@@ -23,7 +23,6 @@ namespace ClassesTimetable.Web.Controllers
         public IActionResult Index()
         {
             return View(_db.Teachers.ToList());
-            ;
         }
 
         [HttpGet]

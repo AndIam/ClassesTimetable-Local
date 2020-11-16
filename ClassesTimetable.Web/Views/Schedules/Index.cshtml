@@ -4,25 +4,31 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Расписание</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Создать</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
+                <p>Группа</p>@*@Html.DisplayNameFor(model => model.Group)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndTime)
+                <p>Аудитория</p>@*@Html.DisplayNameFor(model => model.ClassRoom)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher)
+                <p>Начало занятия</p>@*@Html.DisplayNameFor(model => model.StartTime)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lesson)
+                <p>Конец занятия</p>@*@Html.DisplayNameFor(model => model.EndTime)*@
+            </th>
+            <th>
+                <p>Преподаватель</p>@*@Html.DisplayNameFor(model => model.Teacher)*@
+            </th>
+            <th>
+                <p>Предмет</p>@*@Html.DisplayNameFor(model => model.Lesson)*@
             </th>
             <th></th>
         </tr>
@@ -30,6 +36,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassRoom.Name)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartTime)
             </td>
@@ -43,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Lesson.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }
